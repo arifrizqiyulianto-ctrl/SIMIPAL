@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 #include "core/config_board.h"
+#include "core/config_sensor.h"
 
 void PhSensor::begin()
 {
@@ -14,9 +15,17 @@ SensorReading PhSensor::read()
 {
     SensorReading reading{};
 
-    const int adc = analogRead(PH_PIN);
+    uint32_t total = 0;
 
-    reading.value = (static_cast<float>(adc) / 4095.0f) * 3.3f;
+    for (uint8_t i = 0; i < PH_SAMPLE_COUNT; ++i)
+    {
+        total += analogRead(PH_PIN);
+    }
+
+    const float averageAdc =
+        static_cast<float>(total) / static_cast<float>(PH_SAMPLE_COUNT);
+
+    reading.value = (averageAdc / 4095.0f) * 3.3f;
     reading.valid = true;
 
     return reading;
