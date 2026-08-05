@@ -14,7 +14,9 @@ SensorReading PhSensor::read()
 {
     SensorReading reading{};
 
-    reading.value = static_cast<float>(analogRead(PH_PIN));
+    const int adc = analogRead(PH_PIN);
+
+    reading.value = (static_cast<float>(adc) / 4095.0f) * 3.3f;
     reading.valid = true;
 
     return reading;

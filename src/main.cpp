@@ -23,8 +23,9 @@ void loop()
 {
     SensorReading reading = phSensor.read();
 
-    Serial.print("Raw ADC : ");
-    Serial.println(reading.value, 0);
+    Serial.print("Voltage : ");
+    Serial.print(reading.value, 3);
+    Serial.println(" V");
 
     delay(1000);
-}
+}   
