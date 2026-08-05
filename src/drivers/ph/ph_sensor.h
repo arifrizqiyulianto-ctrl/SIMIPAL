@@ -9,6 +9,10 @@ public:
     void begin();
 
     SensorReading read();
+
+private:
+    float filteredVoltage_ = 0.0f;
+    bool filterInitialized_ = false;
 };
 
 #endif // PH_SENSOR_H

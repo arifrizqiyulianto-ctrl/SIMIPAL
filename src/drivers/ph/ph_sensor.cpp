@@ -23,9 +23,25 @@ SensorReading PhSensor::read()
     }
 
     const float averageAdc =
-        static_cast<float>(total) / static_cast<float>(PH_SAMPLE_COUNT);
+        static_cast<float>(total) /
+        static_cast<float>(PH_SAMPLE_COUNT);
 
-    reading.value = (averageAdc / 4095.0f) * 3.3f;
+    const float voltage =
+        (averageAdc / 4095.0f) * 3.3f;
+
+    if (!filterInitialized_)
+    {
+        filteredVoltage_ = voltage;
+        filterInitialized_ = true;
+    }
+    else
+    {
+        filteredVoltage_ =
+            (PH_EMA_ALPHA * voltage) +
+            ((1.0f - PH_EMA_ALPHA) * filteredVoltage_);
+    }
+
+    reading.value = filteredVoltage_;
     reading.valid = true;
 
     return reading;
