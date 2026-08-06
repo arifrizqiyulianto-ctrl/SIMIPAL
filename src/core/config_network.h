@@ -7,8 +7,8 @@
 // WiFi Configuration
 // ============================================================================
 
-constexpr char WIFI_SSID[] = "YOUR_WIFI";
-constexpr char WIFI_PASSWORD[] = "YOUR_PASSWORD";
+constexpr char WIFI_SSID[] = "KANTOR";
+constexpr char WIFI_PASSWORD[] = "labkesda";
 
 constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 15000;
 

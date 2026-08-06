@@ -57,9 +57,16 @@ void loop()
 
     String response;
 
-    httpClient.postJson(json, response);
+    if (httpClient.postJson(json, response))
+    {
+        Serial.println("POST SUCCESS");
+    }
+    else
+    {
+        Serial.println("POST FAILED");
+    }
 
-    Serial.println(json);
+    Serial.println(response);
 
     logger.print(data);
 
