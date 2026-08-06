@@ -15,4 +15,9 @@ struct SensorData
     SensorReading waterLevel;
 };
 
+struct SystemSnapshot
+{
+    SensorData sensors;
+};
+
 #endif // SENSOR_DATA_H

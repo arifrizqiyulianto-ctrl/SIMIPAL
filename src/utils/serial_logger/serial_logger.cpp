@@ -1,30 +1,14 @@
+#include "serial_logger.h"
+
 #include <Arduino.h>
-#include "core/config_board.h"
-#include "services/data_aggregator/data_aggregator.h"
 
-
-DataAggregator dataAggregator;
-
-void setup()
+void SerialLogger::begin()
 {
     Serial.begin(115200);
-    
-    dataAggregator.begin();
-
-    // Memberi waktu Serial siap
-    delay(1000);
-
-    Serial.println();
-    Serial.println("========================================");
-    Serial.println(" SIMIPAL IoT LABKESDA");
-    Serial.println(" Firmware started");
-    Serial.println("========================================");
 }
 
-void loop()
+void SerialLogger::print(const SensorData& data)
 {
-SensorData data = dataAggregator.collect();
-
     Serial.print("PH Voltage : ");
     Serial.print(data.ph.value, 3);
     Serial.println(" V");
@@ -56,6 +40,4 @@ SensorData data = dataAggregator.collect();
     }
 
     Serial.println("----------------------------------------");
-
-    delay(1000);
-}  
+}
