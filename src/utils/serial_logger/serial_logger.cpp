@@ -9,35 +9,34 @@ void SerialLogger::begin()
 
 void SerialLogger::print(const SensorData& data)
 {
-    Serial.print("PH Voltage : ");
-    Serial.print(data.ph.value, 3);
-    Serial.println(" V");
+    printSensor("PH Voltage", data.ph, "V", 3);
 
-    if (data.temperature.valid)
-    {
-        Serial.print("Temperature : ");
-        Serial.print(data.temperature.value, 2);
-        Serial.println(" C");
-    }
-    else
-    {
-        Serial.println("Temperature : INVALID");
-    }
+    printSensor("Temperature", data.temperature, "C", 2);
 
-    Serial.print("TDS Voltage : ");
-    Serial.print(data.tds.value, 3);
-    Serial.println(" V");
+    printSensor("TDS Voltage", data.tds, "V", 3);
 
-    if (data.waterLevel.valid)
-    {
-        Serial.print("Distance : ");
-        Serial.print(data.waterLevel.value, 1);
-        Serial.println(" cm");
-    }
-    else
-    {
-        Serial.println("Distance : INVALID");
-    }
+    printSensor("Distance", data.waterLevel, "cm", 1);
 
     Serial.println("----------------------------------------");
+}
+
+void SerialLogger::printSensor(
+    const char* name,
+    const SensorReading& reading,
+    const char* unit,
+    uint8_t decimals)
+{
+    Serial.print(name);
+    Serial.print(" : ");
+
+    if (reading.valid)
+    {
+        Serial.print(reading.value, decimals);
+        Serial.print(" ");
+        Serial.println(unit);
+    }
+    else
+    {
+        Serial.println("INVALID");
+    }
 }
