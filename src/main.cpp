@@ -1,13 +1,16 @@
 #include <Arduino.h>
 #include "core/config_board.h"
 #include "services/data_aggregator/data_aggregator.h"
+#include "utils/serial_logger/serial_logger.h"
 
 
 DataAggregator dataAggregator;
+SerialLogger logger;
 
 void setup()
 {
-    Serial.begin(115200);
+
+    logger.begin();
     
     dataAggregator.begin();
 
@@ -23,39 +26,9 @@ void setup()
 
 void loop()
 {
-SensorData data = dataAggregator.collect();
+    SensorData data = dataAggregator.collect();
 
-    Serial.print("PH Voltage : ");
-    Serial.print(data.ph.value, 3);
-    Serial.println(" V");
-
-    if (data.temperature.valid)
-    {
-        Serial.print("Temperature : ");
-        Serial.print(data.temperature.value, 2);
-        Serial.println(" C");
-    }
-    else
-    {
-        Serial.println("Temperature : INVALID");
-    }
-
-    Serial.print("TDS Voltage : ");
-    Serial.print(data.tds.value, 3);
-    Serial.println(" V");
-
-    if (data.waterLevel.valid)
-    {
-        Serial.print("Distance : ");
-        Serial.print(data.waterLevel.value, 1);
-        Serial.println(" cm");
-    }
-    else
-    {
-        Serial.println("Distance : INVALID");
-    }
-
-    Serial.println("----------------------------------------");
+    logger.print(data);
 
     delay(1000);
-}  
+}
