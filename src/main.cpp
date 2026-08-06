@@ -3,18 +3,38 @@
 #include "services/data_aggregator/data_aggregator.h"
 #include "utils/serial_logger/serial_logger.h"
 #include "communication/json_builder/json_builder.h"
+#include "communication/wifi_manager/wifi_manager.h"
 
 
 DataAggregator dataAggregator;
 SerialLogger logger;
 JsonBuilder jsonBuilder;
+WiFiManager wifiManager;
 
 void setup()
 {
 
     logger.begin();
+    wifiManager.begin();
     
     dataAggregator.begin();
+    Serial.println();
+Serial.println("Connecting to WiFi...");
+
+if (wifiManager.connect())
+{
+    Serial.println("WiFi Connected");
+    Serial.print("IP Address : ");
+    Serial.println(wifiManager.ipAddress());
+
+    Serial.print("RSSI : ");
+    Serial.print(wifiManager.rssi());
+    Serial.println(" dBm");
+}
+else
+{
+    Serial.println("WiFi Connection Failed");
+}
 
     // Memberi waktu Serial siap
     delay(1000);

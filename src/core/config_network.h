@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 
-constexpr char WIFI_SSID[] = "YOUR_WIFI_SSID";
+constexpr char WIFI_SSID[] = "KANTOR";
 
-constexpr char WIFI_PASSWORD[] = "YOUR_WIFI_PASSWORD";
+constexpr char WIFI_PASSWORD[] = "labkesda";
 
     constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 15000;
 
