@@ -2,10 +2,12 @@
 #include "core/config_board.h"
 #include "services/data_aggregator/data_aggregator.h"
 #include "utils/serial_logger/serial_logger.h"
+#include "communication/json_builder/json_builder.h"
 
 
 DataAggregator dataAggregator;
 SerialLogger logger;
+JsonBuilder jsonBuilder;
 
 void setup()
 {
@@ -27,6 +29,10 @@ void setup()
 void loop()
 {
     SensorData data = dataAggregator.collect();
+
+    String json = jsonBuilder.build(data);
+
+    Serial.println(json);
 
     logger.print(data);
 
