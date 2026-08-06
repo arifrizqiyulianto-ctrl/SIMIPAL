@@ -14,7 +14,7 @@ class SensorManager
 public:
     void begin();
 
-    SensorData readAll();
+    SensorData read();
 
 private:
     PhSensor phSensor_;

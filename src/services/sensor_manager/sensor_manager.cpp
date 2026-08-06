@@ -11,7 +11,7 @@ void SensorManager::begin()
     ultrasonicSensor_.begin();
 }
 
-SensorData SensorManager::readAll()
+SensorData SensorManager::read()
 {
     SensorData data{};
 
@@ -19,7 +19,14 @@ SensorData SensorManager::readAll()
 
     data.temperature = temperatureSensor_.read();
 
-    data.tds = tdsSensor_.read(data.temperature.value);
+    float waterTemperature = 25.0f;
+
+    if (data.temperature.valid)
+    {
+        waterTemperature = data.temperature.value;
+    }
+
+    data.tds = tdsSensor_.read(waterTemperature);
 
     data.waterLevel = ultrasonicSensor_.read();
 
