@@ -4,18 +4,21 @@
 #include "utils/serial_logger/serial_logger.h"
 #include "communication/json_builder/json_builder.h"
 #include "communication/wifi_manager/wifi_manager.h"
+#include "communication/http_client/http_client.h"
 
 
 DataAggregator dataAggregator;
 SerialLogger logger;
 JsonBuilder jsonBuilder;
 WiFiManager wifiManager;
+HttpClient httpClient;
 
 void setup()
 {
 
     logger.begin();
     wifiManager.begin();
+    httpClient.begin();
     
     dataAggregator.begin();
     Serial.println();

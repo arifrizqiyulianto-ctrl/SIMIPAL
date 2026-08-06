@@ -3,10 +3,25 @@
 
 #include <stdint.h>
 
-constexpr char WIFI_SSID[] = "KANTOR";
+// ============================================================================
+// WiFi Configuration
+// ============================================================================
 
-constexpr char WIFI_PASSWORD[] = "labkesda";
+constexpr char WIFI_SSID[] = "YOUR_WIFI";
+constexpr char WIFI_PASSWORD[] = "YOUR_PASSWORD";
 
-    constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 15000;
+constexpr uint32_t WIFI_CONNECT_TIMEOUT_MS = 15000;
 
-#endif // CONFIG_NETWORK_H
+// ============================================================================
+// Server Configuration
+// ============================================================================
+
+constexpr char SERVER_HOST[] = "192.168.102.10";
+
+constexpr uint16_t SERVER_PORT = 80;
+
+constexpr char SERVER_ENDPOINT[] = "/simipal/api.php";
+
+constexpr bool SERVER_USE_HTTPS = false;
+
+#endif
