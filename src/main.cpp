@@ -55,6 +55,10 @@ void loop()
 
     String json = jsonBuilder.build(data);
 
+    String response;
+
+    httpClient.postJson(json, response);
+
     Serial.println(json);
 
     logger.print(data);

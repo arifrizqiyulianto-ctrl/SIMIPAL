@@ -8,7 +8,7 @@ String JsonBuilder::build(const SensorData& data)
 
     doc["ph_voltage"] = data.ph.value;
     doc["temperature"] = data.temperature.value;
-    doc["tds_volage"] = data.tds.value;
+    doc["tds_voltage"] = data.tds.value;
     doc["water_level"] = data.waterLevel.value;
 
     String json;

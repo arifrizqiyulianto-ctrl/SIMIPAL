@@ -8,7 +8,7 @@ class HttpClient
 public:
     void begin();
 
-    bool postJson(const String& json);
+bool postJson(const String& json, String& response);
 
 private:
     String buildUrl() const;
