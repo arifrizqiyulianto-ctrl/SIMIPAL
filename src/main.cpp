@@ -35,32 +35,13 @@ void setup()
 
     Serial.println();
 
-    String ssid = preferencesManager.loadString(
-        PREF_WIFI_SSID,
-        "");
+    String ssid = preferencesManager.getOrCreateString(
+    PREF_WIFI_SSID,
+    WIFI_SSID);
 
-    if (ssid.isEmpty())
-    {
-        preferencesManager.saveString(
-            PREF_WIFI_SSID,
-            WIFI_SSID);
-
-        ssid = WIFI_SSID;
-    }
-
-    String password = preferencesManager.loadString(
-        PREF_WIFI_PASSWORD,
-        "");
-
-    if (password.isEmpty())
-    {
-        preferencesManager.saveString(
-            PREF_WIFI_PASSWORD,
-            WIFI_PASSWORD);
-
-        password = WIFI_PASSWORD;
-    }
-
+    String password = preferencesManager.getOrCreateString(
+    PREF_WIFI_PASSWORD,
+    WIFI_PASSWORD);
     Serial.print("Loaded SSID : ");
     Serial.println(ssid);
 

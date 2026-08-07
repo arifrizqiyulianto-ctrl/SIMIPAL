@@ -25,6 +25,21 @@ String PreferencesManager::loadString(const char* key,
     return preferences.getString(key, defaultValue);
 }
 
+String PreferencesManager::getOrCreateString(
+    const char* key,
+    const String& defaultValue)
+{
+    String value = loadString(key, "");
+
+    if (value.isEmpty())
+    {
+        saveString(key, defaultValue);
+        return defaultValue;
+    }
+
+    return value;
+}
+
 bool PreferencesManager::saveInt(const char* key,
                                  int value)
 {
@@ -35,17 +50,6 @@ int PreferencesManager::loadInt(const char* key,
                                 int defaultValue)
 {
     return preferences.getInt(key, defaultValue);
-}
-bool PreferencesManager::saveBool(const char* key,
-                                  bool value)
-{
-return preferences.putBool(key, value) > 0;
-}
-
-bool PreferencesManager::loadBool(const char* key,
-                                  bool defaultValue)
-{
-    return preferences.getBool(key, defaultValue);
 }
 
 bool PreferencesManager::saveFloat(const char* key,
@@ -58,6 +62,18 @@ float PreferencesManager::loadFloat(const char* key,
                                     float defaultValue)
 {
     return preferences.getFloat(key, defaultValue);
+}
+
+bool PreferencesManager::saveBool(const char* key,
+                                  bool value)
+{
+    return preferences.putBool(key, value) > 0;
+}
+
+bool PreferencesManager::loadBool(const char* key,
+                                  bool defaultValue)
+{
+    return preferences.getBool(key, defaultValue);
 }
 
 bool PreferencesManager::saveUInt(const char* key,
