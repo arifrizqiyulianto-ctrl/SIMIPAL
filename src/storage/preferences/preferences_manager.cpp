@@ -36,3 +36,38 @@ int PreferencesManager::loadInt(const char* key,
 {
     return preferences.getInt(key, defaultValue);
 }
+bool PreferencesManager::saveBool(const char* key,
+                                  bool value)
+{
+return preferences.putBool(key, value) > 0;
+}
+
+bool PreferencesManager::loadBool(const char* key,
+                                  bool defaultValue)
+{
+    return preferences.getBool(key, defaultValue);
+}
+
+bool PreferencesManager::saveFloat(const char* key,
+                                   float value)
+{
+    return preferences.putFloat(key, value) > 0;
+}
+
+float PreferencesManager::loadFloat(const char* key,
+                                    float defaultValue)
+{
+    return preferences.getFloat(key, defaultValue);
+}
+
+bool PreferencesManager::saveUInt(const char* key,
+                                  uint32_t value)
+{
+    return preferences.putUInt(key, value) > 0;
+}
+
+uint32_t PreferencesManager::loadUInt(const char* key,
+                                      uint32_t defaultValue)
+{
+    return preferences.getUInt(key, defaultValue);
+}
