@@ -11,6 +11,9 @@ public:
 
     bool connect();
 
+    bool connect(const String& ssid,
+                 const String& password);
+
     void disconnect();
 
     bool isConnected() const;

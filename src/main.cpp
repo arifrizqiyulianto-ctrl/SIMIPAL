@@ -1,12 +1,18 @@
 #include <Arduino.h>
+
 #include "core/config_board.h"
+#include "core/config_network.h"
+#include "core/config_storage.h"
+
+#include "storage/preferences/preferences_manager.h"
+
 #include "services/data_aggregator/data_aggregator.h"
+
 #include "utils/serial_logger/serial_logger.h"
+
 #include "communication/json_builder/json_builder.h"
 #include "communication/wifi_manager/wifi_manager.h"
 #include "communication/http_client/http_client.h"
-#include "storage/preferences/preferences_manager.h"
-
 
 DataAggregator dataAggregator;
 SerialLogger logger;
@@ -17,37 +23,51 @@ PreferencesManager preferencesManager;
 
 void setup()
 {
-
     logger.begin();
-    preferencesManager.begin();
-    wifiManager.begin();
-    httpClient.begin();
-    
-    dataAggregator.begin();
-    Serial.println();
-    
-    Serial.println();
-    Serial.println("===== Preferences Test =====");
 
-    if (preferencesManager.saveString("wifi_ssid", "LABKESDA_WIFI"))
+    preferencesManager.begin();
+
+    wifiManager.begin();
+
+    httpClient.begin();
+
+    dataAggregator.begin();
+
+    Serial.println();
+
+    String ssid = preferencesManager.loadString(
+        PREF_WIFI_SSID,
+        "");
+
+    if (ssid.isEmpty())
     {
-        Serial.println("Save Success");
+        preferencesManager.saveString(
+            PREF_WIFI_SSID,
+            WIFI_SSID);
+
+        ssid = WIFI_SSID;
     }
-    else
+
+    String password = preferencesManager.loadString(
+        PREF_WIFI_PASSWORD,
+        "");
+
+    if (password.isEmpty())
     {
-        Serial.println("Save Failed");
+        preferencesManager.saveString(
+            PREF_WIFI_PASSWORD,
+            WIFI_PASSWORD);
+
+        password = WIFI_PASSWORD;
     }
-    String ssid = preferencesManager.loadString("wifi_ssid", "NOT_FOUND");
 
     Serial.print("Loaded SSID : ");
     Serial.println(ssid);
 
-    Serial.println("============================");
     Serial.println();
-
     Serial.println("Connecting to WiFi...");
 
-    if (wifiManager.connect())
+    if (wifiManager.connect(ssid, password))
     {
         Serial.println("WiFi Connected");
         Serial.print("IP Address : ");
@@ -62,14 +82,13 @@ void setup()
         Serial.println("WiFi Connection Failed");
     }
 
-        // Memberi waktu Serial siap
-        delay(1000);
+    delay(1000);
 
-        Serial.println();
-        Serial.println("========================================");
-        Serial.println(" SIMIPAL IoT LABKESDA");
-        Serial.println(" Firmware started");
-        Serial.println("========================================");
+    Serial.println();
+    Serial.println("========================================");
+    Serial.println(" SIMIPAL IoT LABKESDA");
+    Serial.println(" Firmware started");
+    Serial.println("========================================");
 }
 
 void loop()

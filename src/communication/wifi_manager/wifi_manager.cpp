@@ -9,7 +9,13 @@ void WiFiManager::begin()
 
 bool WiFiManager::connect()
 {
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    return connect(WIFI_SSID, WIFI_PASSWORD);
+}
+
+bool WiFiManager::connect(const String& ssid,
+                          const String& password)
+{
+    WiFi.begin(ssid.c_str(), password.c_str());
 
     const uint32_t startTime = millis();
 
